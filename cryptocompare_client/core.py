@@ -232,7 +232,6 @@ class CryptocompareClient(object):
         if self.sub_strings is None:
             self.sub_strings = []
 
-        import pdb; pdb.set_trace()
         self.sub_strings.extend(sub_strings)
         self.sub_strings = list(set(self.sub_strings))
 
