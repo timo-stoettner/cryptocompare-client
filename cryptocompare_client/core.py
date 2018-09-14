@@ -354,5 +354,5 @@ class CryptocompareClient(object):
     def process_message(self, msg):
         """Override this method to alter or handle incoming messages"""
         if self.mongo_col is None:
-            print msg
+            print(msg)
         return msg
