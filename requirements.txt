@@ -3,3 +3,4 @@ sphinx
 requests
 pymongo
 socketIO_client
+six

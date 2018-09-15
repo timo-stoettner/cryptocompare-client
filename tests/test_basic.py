@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from .context import cryptocompare
+from .context import cryptocompare_client
 
 from requests.exceptions import ConnectionError, MissingSchema
 
@@ -11,7 +11,7 @@ class RestTestSuite(unittest.TestCase):
     """Basic test cases."""
 
     def setUp(self):
-        self.client = cryptocompare.CryptocompareClient()
+        self.client = cryptocompare_client.CryptocompareClient()
 
     def test_coin_list_valid(self):
         res = self.client.get_coin_list()

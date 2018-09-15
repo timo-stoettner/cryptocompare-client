@@ -15,6 +15,9 @@ import socketIO_client
 from . import masks
 from . import customized_methods
 
+from six import iteritems
+from six import string_types as basestring
+
 setattr(socketIO_client.transports.XHR_PollingTransport,
         'recv_packet', customized_methods.custom_recv_packet)
 
@@ -167,7 +170,7 @@ class CryptocompareClient(object):
     def get_all_coins(self, base_url='https://www.cryptocompare.com/api/data/'):
         """Return a list of all coins that are available on CryptoCompare"""
         coin_list = self.get_coin_list(base_url=base_url)
-        return [coin for coin,d in coin_list['Data'].iteritems()]
+        return [coin for coin,d in iteritems(coin_list['Data'])]
 
 
     def get_all_exchanges(self, fsym, tsym, base_url='https://www.cryptocompare.com/api/data/'):
@@ -182,7 +185,7 @@ class CryptocompareClient(object):
 
     def query_rest_api(self, api_name, base_url='https://min-api.cryptocompare.com/data/', **params):
         """Query the Rest API with specified params"""
-        query_params = '&'.join(['{}={}'.format(k,v) for k,v in params.iteritems()])
+        query_params = '&'.join(['{}={}'.format(k,v) for k,v in iteritems(params)])
         query_string = base_url + api_name + '?' + query_params
         r =  requests.get(query_string)
         if r.status_code == 200:
@@ -354,5 +357,5 @@ class CryptocompareClient(object):
     def process_message(self, msg):
         """Override this method to alter or handle incoming messages"""
         if self.mongo_col is None:
-            print msg
+            print(msg)
         return msg
