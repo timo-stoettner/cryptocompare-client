@@ -348,7 +348,7 @@ class CryptocompareClient(object):
         logging.debug("Received message: %s", parsed_message)
 
         parsed_message = self.process_message(parsed_message)
-	self.received_messages.append(time.time())
+        self.received_messages.append(time.time())
 
         if self.mongo_col is not None:
             self.mongo_col.insert_one(parsed_message)
