@@ -120,9 +120,9 @@ class CryptocompareClient(object):
                 if restart_after is not None:
                     time.sleep(restart_after)
                 while True:
-                    n_messages = len(filter(lambda message_time:
-                                            time.time()-message_time < restart_after,
-                                            self.received_messages))
+                    messages_in_time = [message_time for message_time in self.received_messages
+                                          if time.time() - message_time < restart_after]
+                    n_messages = len(messages_in_time)
 
                     logging.debug("Number of messages in last %s seconds: %s",
                                   restart_after, n_messages)
@@ -348,6 +348,7 @@ class CryptocompareClient(object):
         logging.debug("Received message: %s", parsed_message)
 
         parsed_message = self.process_message(parsed_message)
+	self.received_messages.append(time.time())
 
         if self.mongo_col is not None:
             self.mongo_col.insert_one(parsed_message)
